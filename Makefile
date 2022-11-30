@@ -9,11 +9,12 @@ HEADER			= minishell.h
 HEADER_PATH		= $(addprefix $(HEADER_DIR), $(HEADER))
 
 SRC_DIR			= ./src/
-SRC				= 	minishell.c
+SRC				= minishell.c
 SRC_PATH		= $(addprefix $(SRC_DIR), $(SRC))
 
 CC				= gcc
 CFLAGS			= -Wall -Wextra -Werror
+CLINK			= -lft -lreadline
 
 BIN				= ./bin/
 BINARY_OUT		= $(addprefix $(BIN), $(NAME))
@@ -24,7 +25,7 @@ $(BINARY_OUT): $(SRC_PATH) $(HEADER_PATH)
 	@ $(MAKE) -C $(LIBFT_DIR)
 	@ cp $(LIBFT) $(NAME)
 	@ mkdir -p $(BIN)
-	@ $(CC) $(CFLAGS) $(SRC_PATH) -I $(HEADER_DIR) -I $(HEADER_LIBFT) -L $(LIBFT_DIR) -lft -o $(NAME)
+	@ $(CC) $(CFLAGS) $(SRC_PATH) -I $(HEADER_DIR) -I $(HEADER_LIBFT) -L $(LIBFT_DIR) $(CLINK) -o $(NAME)
 	@ mv $(NAME) $(BIN)
 	@ echo "$(NAME) compiled successfully!"
 
