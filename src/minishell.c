@@ -6,9 +6,11 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 16:46:52 by ccamargo          #+#    #+#             */
-/*   Updated: 2022/11/30 16:47:15 by ccamargo         ###   ########.fr       */
+/*   Updated: 2022/11/30 16:50:12 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <minishell.h>
 
 int main(void)
 {
