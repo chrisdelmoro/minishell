@@ -9,7 +9,10 @@ HEADER			= minishell.h
 HEADER_PATH		= $(addprefix $(HEADER_DIR), $(HEADER))
 
 SRC_DIR			= ./src/
-SRC				= minishell.c
+SRC				= 	minishell.c \
+					initialization_utils.c \
+					shell_utils.c \
+					close_utils.c
 SRC_PATH		= $(addprefix $(SRC_DIR), $(SRC))
 
 CC				= gcc
@@ -43,5 +46,13 @@ fclean: clean
 	@ echo "$(NAME_BONUS) binaries erased successfully!"
 
 re: fclean all
+
+leaks:
+	@ $(MAKE) -C $(LIBFT_DIR)
+	@ cp $(LIBFT) $(NAME)
+	@ mkdir -p $(BIN)
+	@ $(CC) $(CFLAGS) -g $(SRC_PATH) -I $(HEADER_DIR) -I $(HEADER_LIBFT) -L $(LIBFT_DIR) $(CLINK) -o $(NAME)
+	@ mv $(NAME) $(BIN)
+	@ echo "$(NAME) with leak check option compiled successfully!"
 
 .PHONY: all clean fclean re
