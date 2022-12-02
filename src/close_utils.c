@@ -6,13 +6,16 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:37:04 by ccamargo          #+#    #+#             */
-/*   Updated: 2022/11/30 21:37:24 by ccamargo         ###   ########.fr       */
+/*   Updated: 2022/12/01 22:41:31 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	free_memory(t_shell *shell)
+/* readline() function causes leaks on its own. */
+/* Free all memory allocated for the shell struct. */
+
+void	free_shell(t_shell *shell)
 {
 	int		i;
 
@@ -24,4 +27,14 @@ void	free_memory(t_shell *shell)
 	}
 	free(shell->envp);
 	shell->envp = NULL;
+	ft_freethis(&(*shell).user, NULL);
+	ft_freethis(&(*shell).prompt, NULL);
+	rl_clear_history();
+}
+
+/* Free all memory allocated for the cmd struct. */
+
+void	free_cmd(t_cmd *cmd)
+{
+	ft_freethis(&(*cmd).cmd_typed, NULL);
 }

@@ -54,3 +54,4 @@ dkms.conf
 # Files relevant to this project
 /bin
 *.pdf
+.vscode

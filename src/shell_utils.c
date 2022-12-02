@@ -6,11 +6,13 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:41:45 by ccamargo          #+#    #+#             */
-/*   Updated: 2022/11/30 21:41:59 by ccamargo         ###   ########.fr       */
+/*   Updated: 2022/12/01 21:30:03 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+/* Find enviroment variables in the struct s_shell. */
 
 char	*find_envp_field(t_shell *shell, const char *field)
 {

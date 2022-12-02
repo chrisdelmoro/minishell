@@ -6,11 +6,13 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:39:05 by ccamargo          #+#    #+#             */
-/*   Updated: 2022/11/30 21:39:48 by ccamargo         ###   ########.fr       */
+/*   Updated: 2022/12/01 22:36:11 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+/* Initialize shell variables. */
 
 void	initialize_shell(t_shell *shell, const char **envp)
 {
@@ -28,4 +30,14 @@ void	initialize_shell(t_shell *shell, const char **envp)
 		i++;
 		line_count--;
 	}
+	shell->user = find_envp_field(shell, "USER");
+	shell->prompt = ft_strjoin(shell->user, " > ");
+	shell->exit = 0;
+}
+
+/* Initialize cmd variables. Called each time a command is typed. */
+
+void	initialize_cmd(t_cmd *cmd)
+{
+	cmd->cmd_typed = NULL;
 }
