@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:41:45 by ccamargo          #+#    #+#             */
-/*   Updated: 2022/12/01 21:30:03 by ccamargo         ###   ########.fr       */
+/*   Updated: 2022/12/02 15:50:48 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	*find_envp_field(t_shell *shell, const char *field)
 	char	*field_tested;
 
 	i = 0;
+	if (!shell || !field)
+		return (NULL);
 	while (shell->envp[i])
 	{
 		field_tested = ft_substr(shell->envp[i], 0, ft_strchr(shell->envp[i], \

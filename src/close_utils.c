@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:37:04 by ccamargo          #+#    #+#             */
-/*   Updated: 2022/12/01 22:41:31 by ccamargo         ###   ########.fr       */
+/*   Updated: 2022/12/02 18:46:37 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 void	free_shell(t_shell *shell)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (shell->envp[i])
@@ -36,5 +36,15 @@ void	free_shell(t_shell *shell)
 
 void	free_cmd(t_cmd *cmd)
 {
+	int	i;
+
+	i = 0;
+	while (cmd->cmd_table[i])
+	{
+		ft_freethis(&(cmd)->cmd_table[i], NULL);
+		i++;
+	}
+	free(cmd->cmd_table);
+	cmd->cmd_table = NULL;
 	ft_freethis(&(*cmd).cmd_typed, NULL);
 }

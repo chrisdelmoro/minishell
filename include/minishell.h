@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 16:50:53 by ccamargo          #+#    #+#             */
-/*   Updated: 2022/12/01 22:35:21 by ccamargo         ###   ########.fr       */
+/*   Updated: 2022/12/02 17:21:00 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define MINISHELL_H
 
 # include <libft.h>
-# include <ft_printf.h>
 # include <fcntl.h>
 # include <unistd.h>
 # include <sys/stat.h>
@@ -47,6 +46,10 @@ void	initialize_cmd(t_cmd *cmd);
 
 /* shell_utils.c */
 char	*find_envp_field(t_shell *shell, const char *field);
+
+/* cmd_utils.c */
+void	feed_cmd_table(t_cmd *cmd);
+void	print_cmd_table(t_cmd *cmd);
 
 /* close_utils.c */
 void	free_shell(t_shell *shell);
