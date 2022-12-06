@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:37:04 by ccamargo          #+#    #+#             */
-/*   Updated: 2022/12/02 18:46:37 by ccamargo         ###   ########.fr       */
+/*   Updated: 2022/12/06 13:31:23 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,14 @@ void	free_shell(t_shell *shell)
 
 void	free_cmd(t_cmd *cmd)
 {
-	int	i;
+	t_list	*tmp;
 
-	i = 0;
-	while (cmd->cmd_table[i])
+	tmp = cmd->cmd_table;
+	while (tmp)
 	{
-		ft_freethis(&(cmd)->cmd_table[i], NULL);
-		i++;
+		ft_lstclear((t_list **) &tmp->content, free);
+		tmp = tmp->next;
 	}
-	free(cmd->cmd_table);
-	cmd->cmd_table = NULL;
+	ft_lstclear(&(*cmd).cmd_table, free);
 	ft_freethis(&(*cmd).cmd_typed, NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:39:05 by ccamargo          #+#    #+#             */
-/*   Updated: 2022/12/02 17:17:37 by ccamargo         ###   ########.fr       */
+/*   Updated: 2022/12/05 17:06:10 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,6 @@ void	initialize_shell(t_shell *shell, const char **envp)
 
 void	initialize_cmd(t_cmd *cmd)
 {
+	cmd->cmd_table = NULL;
 	cmd->cmd_typed = NULL;
 }

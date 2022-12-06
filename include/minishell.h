@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 16:50:53 by ccamargo          #+#    #+#             */
-/*   Updated: 2022/12/02 17:21:00 by ccamargo         ###   ########.fr       */
+/*   Updated: 2022/12/06 13:35:09 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct s_shell
 
 typedef struct s_cmd
 {
-	char	**cmd_table;
+	t_list	*cmd_table;
 	char	*cmd_typed;
 }	t_cmd;
 
@@ -49,7 +49,7 @@ char	*find_envp_field(t_shell *shell, const char *field);
 
 /* cmd_utils.c */
 void	feed_cmd_table(t_cmd *cmd);
-void	print_cmd_table(t_cmd *cmd);
+void	print_cmd_table(t_cmd cmd);
 
 /* close_utils.c */
 void	free_shell(t_shell *shell);
