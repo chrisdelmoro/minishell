@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:37:04 by ccamargo          #+#    #+#             */
-/*   Updated: 2022/12/06 13:31:23 by ccamargo         ###   ########.fr       */
+/*   Updated: 2022/12/08 11:41:37 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,7 @@
 
 void	free_shell(t_shell *shell)
 {
-	int	i;
-
-	i = 0;
-	while (shell->envp[i])
-	{
-		ft_freethis(&(*shell).envp[i], NULL);
-		i++;
-	}
-	free(shell->envp);
-	shell->envp = NULL;
+	ft_lstclear(&shell->envp, free);
 	ft_freethis(&(*shell).user, NULL);
 	ft_freethis(&(*shell).prompt, NULL);
 	rl_clear_history();
