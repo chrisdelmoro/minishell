@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 16:46:52 by ccamargo          #+#    #+#             */
-/*   Updated: 2022/12/08 11:45:21 by ccamargo         ###   ########.fr       */
+/*   Updated: 2022/12/11 12:50:36 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,11 @@ void	handle_cmd(t_shell *shell)
 {
 	t_cmd	cmd;
 
-	initialize_cmd(&cmd);
+	initialize_cmd(shell, &cmd);
 	cmd.cmd_typed = readline(shell->prompt);
 	add_history(cmd.cmd_typed);
 	feed_cmd_table(&cmd);
-	print_cmd_table(cmd);
-	if (!ft_strncmp(cmd.cmd_typed, "exit", 4))
-		shell->exit = 1;
+	execute_cmd(shell, &cmd);
 	free_cmd(&cmd);
 }
 

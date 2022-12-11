@@ -13,6 +13,7 @@ SRC				= 	minishell.c \
 					initialization_utils.c \
 					shell_utils.c \
 					cmd_utils.c \
+					cmd_exec_utils.c \
 					close_utils.c
 SRC_PATH		= $(addprefix $(SRC_DIR), $(SRC))
 

@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:37:04 by ccamargo          #+#    #+#             */
-/*   Updated: 2022/12/08 11:41:37 by ccamargo         ###   ########.fr       */
+/*   Updated: 2022/12/11 12:52:56 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,16 @@
 
 void	free_shell(t_shell *shell)
 {
-	ft_lstclear(&shell->envp, free);
-	ft_freethis(&(*shell).user, NULL);
+	int	i;
+
+	i = 0;
+	while (shell->envp[i])
+	{
+		ft_freethis(&(*shell).envp[i], NULL);
+		i++;
+	}
+	free(shell->envp);
+	shell->envp = NULL;
 	ft_freethis(&(*shell).prompt, NULL);
 	rl_clear_history();
 }
@@ -28,6 +36,7 @@ void	free_shell(t_shell *shell)
 void	free_cmd(t_cmd *cmd)
 {
 	t_list	*tmp;
+	int		i;
 
 	tmp = cmd->cmd_table;
 	while (tmp)
@@ -37,4 +46,26 @@ void	free_cmd(t_cmd *cmd)
 	}
 	ft_lstclear(&(*cmd).cmd_table, free);
 	ft_freethis(&(*cmd).cmd_typed, NULL);
+	i = 0;
+	while (cmd->paths[i])
+	{
+		ft_freethis(&cmd->paths[i], NULL);
+		i++;
+	}
+	free(cmd->paths);
+	cmd->paths = NULL;
+}
+
+void	free_argv(char **argv)
+{
+	int	i;
+
+	i = 0;
+	while (argv[i])
+	{
+		ft_freethis(&argv[i], NULL);
+		i++;
+	}
+	free(argv);
+	argv = NULL;
 }

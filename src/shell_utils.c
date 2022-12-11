@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:41:45 by ccamargo          #+#    #+#             */
-/*   Updated: 2022/12/08 11:48:44 by ccamargo         ###   ########.fr       */
+/*   Updated: 2022/12/10 10:55:27 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,24 @@
 
 char	*find_envp_field(t_shell *shell, const char *field)
 {
+	int		i;
 	char	*field_tested;
-	t_list	*tmp_envp;
 
+	i = 0;
 	if (!shell || !field)
 		return (NULL);
-	tmp_envp = shell->envp;
-	while (tmp_envp)
+	while (shell->envp[i])
 	{
-		field_tested = ft_substr((char *) tmp_envp->content, 0, ft_strchr(\
-		(char *) tmp_envp->content, '=') - (char *) tmp_envp->content);
+		field_tested = ft_substr(shell->envp[i], 0, ft_strchr(shell->envp[i], \
+		'=') - shell->envp[i]);
 		if (!ft_strncmp(field_tested, field, ft_strlen(field_tested)))
 		{
 			ft_freethis(&field_tested, NULL);
-			return (ft_substr((char *) tmp_envp->content, ft_strchr((char *) \
-			tmp_envp->content, '=') - (char *) tmp_envp->content + 1, \
-			ft_strlen((char *) tmp_envp->content)));
+			return (ft_substr(shell->envp[i], ft_strchr(shell->envp[i], '=') \
+			- shell->envp[i] + 1, ft_strlen(shell->envp[i])));
 		}
 		ft_freethis(&field_tested, NULL);
-		tmp_envp = tmp_envp->next;
+		i++;
 	}
 	return (NULL);
 }
