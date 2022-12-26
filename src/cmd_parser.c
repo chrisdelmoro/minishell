@@ -1,33 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_utils.c                                        :+:      :+:    :+:   */
+/*   cmd_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/02 16:52:35 by ccamargo          #+#    #+#             */
-/*   Updated: 2022/12/19 19:44:04 by ccamargo         ###   ########.fr       */
+/*   Created: 2022/12/19 19:02:13 by ccamargo          #+#    #+#             */
+/*   Updated: 2022/12/24 12:44:13 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-/* Prints the contents of cmd table */
+/* Feeds the cmd_table on the t_cmd struct with every command and arguments
+typed */
 
-void	print_cmd_table(t_cmd cmd) //remove
+void	feed_cmd_table(t_shell *shell, t_cmd *cmd)
 {
-	t_list	*tmp;
-
-	while (cmd.cmd_table)
-	{
-		tmp = cmd.cmd_table->content;
-		while (tmp)
-		{
-			printf("%s", (char *) tmp->content);
-			printf(" ");
-			tmp = tmp->next;
-		}
-		printf("\n");
-		cmd.cmd_table = cmd.cmd_table->next;
-	}
+	trim_cmd_typed(cmd);
+	check_number_of_quotes(cmd);
+	cmd_pipe_parser(cmd);
+	cmd_redirect_parser(cmd);
+	cmd_expand_var(shell, cmd);
+	cmd_remove_quotes(cmd);
+	cmd_space_parser(cmd);
 }
