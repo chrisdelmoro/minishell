@@ -13,6 +13,14 @@ SRC				= 	minishell.c \
 					initialization_utils.c \
 					shell_utils.c \
 					cmd_utils.c \
+					cmd_parser.c \
+					cmd_pipe_parser.c \
+					cmd_redirect_parser.c \
+					cmd_validation_utils.c \
+					cmd_var_expansion.c \
+					cmd_quotes_parser.c \
+					cmd_space_parser.c \
+					cmd_error.c \
 					cmd_exec_utils.c \
 					close_utils.c
 SRC_PATH		= $(addprefix $(SRC_DIR), $(SRC))
@@ -56,5 +64,13 @@ leaks:
 	@ $(CC) $(CFLAGS) -g $(SRC_PATH) -I $(HEADER_DIR) -I $(HEADER_LIBFT) -L $(LIBFT_DIR) $(CLINK) -o $(NAME)
 	@ mv $(NAME) $(BIN)
 	@ echo "$(NAME) with leak check option compiled successfully!"
+
+simple:
+	@ $(MAKE) -C $(LIBFT_DIR)
+	@ cp $(LIBFT) $(NAME)
+	@ mkdir -p $(BIN)
+	@ $(CC) -g $(SRC_PATH) -I $(HEADER_DIR) -I $(HEADER_LIBFT) -L $(LIBFT_DIR) $(CLINK) -o $(NAME)
+	@ mv $(NAME) $(BIN)
+	@ echo "$(NAME) without compile flags compiled successfully!"
 
 .PHONY: all clean fclean re

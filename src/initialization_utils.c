@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:39:05 by ccamargo          #+#    #+#             */
-/*   Updated: 2022/12/10 20:00:45 by ccamargo         ###   ########.fr       */
+/*   Updated: 2022/12/22 18:16:57 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	initialize_cmd(t_shell *shell, t_cmd *cmd)
 
 	cmd->cmd_table = NULL;
 	cmd->cmd_typed = NULL;
+	cmd->error = 0;
 	env_path = find_envp_field(shell, "PATH");
 	cmd->paths = ft_split(env_path, ':');
 	ft_freethis(&env_path, NULL);

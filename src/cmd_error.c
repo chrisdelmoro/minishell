@@ -1,33 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_utils.c                                        :+:      :+:    :+:   */
+/*   cmd_error.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/02 16:52:35 by ccamargo          #+#    #+#             */
-/*   Updated: 2022/12/19 19:44:04 by ccamargo         ###   ########.fr       */
+/*   Created: 2022/12/22 19:04:30 by ccamargo          #+#    #+#             */
+/*   Updated: 2022/12/22 19:06:14 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-/* Prints the contents of cmd table */
-
-void	print_cmd_table(t_cmd cmd) //remove
+void	throw_err(t_cmd *cmd, char *err)
 {
-	t_list	*tmp;
-
-	while (cmd.cmd_table)
-	{
-		tmp = cmd.cmd_table->content;
-		while (tmp)
-		{
-			printf("%s", (char *) tmp->content);
-			printf(" ");
-			tmp = tmp->next;
-		}
-		printf("\n");
-		cmd.cmd_table = cmd.cmd_table->next;
-	}
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(err, 2);
+	ft_putchar_fd('\n', 2);
+	cmd->error = 1;
 }
