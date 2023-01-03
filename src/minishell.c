@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlucas-f <jlucas-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 16:46:52 by ccamargo          #+#    #+#             */
-/*   Updated: 2022/12/24 12:42:56 by ccamargo         ###   ########.fr       */
+/*   Updated: 2022/12/18 10:56:22 by jlucas-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,12 @@ void	handle_cmd(t_shell *shell)
 {
 	t_cmd	cmd;
 
+	hijack_signals();
 	initialize_cmd(shell, &cmd);
 	cmd.cmd_typed = readline(shell->prompt);
 	add_history(cmd.cmd_typed);
-	feed_cmd_table(shell, &cmd);
-	//print_cmd_table(cmd);
-	//printf("cmd_typed: %s\n", cmd.cmd_typed);
-	if (!cmd.error)
-		execute_cmd(shell, &cmd);
+	feed_cmd_table(&cmd);
+	execute_cmd(shell, &cmd);
 	free_cmd(&cmd);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_exec_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlucas-f <jlucas-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 12:50:14 by ccamargo          #+#    #+#             */
-/*   Updated: 2022/12/11 17:06:21 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/01/03 00:22:32 by jlucas-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,10 @@ void	execute_cmd(t_shell *shell, t_cmd *cmd)
 		return ;
 	}
 	argv = form_argv(cmd->cmd_table->content);
+	if (cmd_is_builtin((char *) tested_cmd->content))
+	{
+		execute_builtin(cmd);
+	}
 	if (!ft_strncmp(argv[0], ".", 1) || !ft_strncmp(argv[0], "/", 1))
 		run_path(shell, argv);
 	else
