@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_parser.c                                       :+:      :+:    :+:   */
+/*   env_built_in.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/19 19:02:13 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/01/07 14:37:47 by ccamargo         ###   ########.fr       */
+/*   Created: 2023/01/07 15:53:00 by ccamargo          #+#    #+#             */
+/*   Updated: 2023/01/07 15:53:12 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-/* Feeds the cmd_table on the t_cmd struct with every command and arguments
-typed */
-
-void	feed_cmd_table(t_shell *shell, t_cmd *cmd)
+void	run_env(t_shell *shell)
 {
-	trim_cmd_typed(cmd);
-	check_number_of_quotes(cmd);
-	cmd_pipe_parser(cmd);
-	cmd_redirect_parser(cmd);
-	cmd_expand_var(shell, cmd);
-	cmd_remove_quotes(cmd);
-	cmd_space_parser(cmd);
-	cmd_count_argc(cmd);
+	int	i;
+
+	i = 0;
+	while (shell->envp[i])
+	{
+		printf("%s\n", shell->envp[i]);
+		i++;
+	}
 }

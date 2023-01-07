@@ -12,6 +12,13 @@ SRC_DIR			= ./src/
 SRC				= 	minishell.c \
 					initialization_utils.c \
 					shell_utils.c \
+					built_ins.c \
+					cd_built_in.c \
+					env_built_in.c \
+					pwd_built_in.c \
+					echo_built_in.c \
+					export_built_in.c \
+					unset_built_in.c \
 					cmd_utils.c \
 					cmd_parser.c \
 					cmd_pipe_parser.c \

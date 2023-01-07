@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:39:05 by ccamargo          #+#    #+#             */
-/*   Updated: 2022/12/22 18:16:57 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/01/07 14:37:09 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	initialize_shell(t_shell *shell, const char **envp)
 		i++;
 		line_count--;
 	}
+	replace_env_field(shell, "SHELL", "SHELL=minishell");
 	user = find_envp_field(shell, "USER");
 	shell->prompt = ft_strjoin(user, " > ");
 	ft_freethis(&user, NULL);
@@ -49,4 +50,5 @@ void	initialize_cmd(t_shell *shell, t_cmd *cmd)
 	env_path = find_envp_field(shell, "PATH");
 	cmd->paths = ft_split(env_path, ':');
 	ft_freethis(&env_path, NULL);
+	cmd->argc = 0;
 }

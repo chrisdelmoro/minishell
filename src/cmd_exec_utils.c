@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 12:50:14 by ccamargo          #+#    #+#             */
-/*   Updated: 2022/12/11 17:06:21 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/01/02 18:19:37 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ void	execute_cmd(t_shell *shell, t_cmd *cmd)
 		return ;
 	}
 	argv = form_argv(cmd->cmd_table->content);
+	check_built_in(cmd, shell);
 	if (!ft_strncmp(argv[0], ".", 1) || !ft_strncmp(argv[0], "/", 1))
 		run_path(shell, argv);
 	else

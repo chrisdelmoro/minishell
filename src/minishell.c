@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 16:46:52 by ccamargo          #+#    #+#             */
-/*   Updated: 2022/12/24 12:42:56 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/01/07 14:48:01 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	main(int argc, char **argv, const char **envp)
 	{
 		handle_cmd(&shell);
 	}
+	printf("exit\n");
 	free_shell(&shell);
 	return (0);
 }

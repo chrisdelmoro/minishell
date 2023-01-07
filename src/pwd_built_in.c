@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_parser.c                                       :+:      :+:    :+:   */
+/*   pwd_built_in.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/19 19:02:13 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/01/07 14:37:47 by ccamargo         ###   ########.fr       */
+/*   Created: 2023/01/07 15:54:49 by ccamargo          #+#    #+#             */
+/*   Updated: 2023/01/07 15:55:06 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-/* Feeds the cmd_table on the t_cmd struct with every command and arguments
-typed */
-
-void	feed_cmd_table(t_shell *shell, t_cmd *cmd)
+void	run_pwd(t_shell *shell)
 {
-	trim_cmd_typed(cmd);
-	check_number_of_quotes(cmd);
-	cmd_pipe_parser(cmd);
-	cmd_redirect_parser(cmd);
-	cmd_expand_var(shell, cmd);
-	cmd_remove_quotes(cmd);
-	cmd_space_parser(cmd);
-	cmd_count_argc(cmd);
+	char	*found_field;
+	char	*found_field_no_extra_slash;
+
+	found_field = find_envp_field(shell, "PWD");
+	found_field_no_extra_slash = ft_substr(found_field, 1, \
+	ft_strlen(found_field));
+	printf("%s\n", found_field_no_extra_slash);
+	ft_freethis(&found_field, NULL);
+	ft_freethis(&found_field_no_extra_slash, NULL);
 }

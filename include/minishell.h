@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 16:50:53 by ccamargo          #+#    #+#             */
-/*   Updated: 2022/12/23 18:44:14 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/01/07 16:13:18 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_cmd
 	t_list	*cmd_table;
 	char	*cmd_typed;
 	char	**paths;
+	int		argc;
 	int		error;
 }	t_cmd;
 
@@ -47,9 +48,34 @@ void	initialize_cmd(t_shell *shell, t_cmd *cmd);
 
 /* shell_utils.c */
 char	*find_envp_field(t_shell *shell, const char *field);
+int		find_envp_field_index(t_shell *shell, const char *field);
+void	replace_env_field(t_shell *shell, const char *field, \
+const char *new_field);
+
+/* built_ins.c */
+void	check_built_in(t_cmd *cmd, t_shell *shell);
+
+/* cd_built_in.c */
+void	run_cd(t_cmd *cmd, t_shell *shell);
+
+/* env_built_in.c */
+void	run_env(t_shell *shell);
+
+/* pwd_built_in.c */
+void	run_pwd(t_shell *shell);
+
+/* echo_built_in.c */
+void	run_echo(t_cmd *cmd);
+
+/* export_built_in.c */
+void	run_export(t_cmd *cmd, t_shell *shell);
+
+/* unset_built_in.c */
+void	run_unset(t_cmd *cmd, t_shell *shell);
 
 /* cmd_utils.c */
 void	print_cmd_table(t_cmd cmd);
+void	cmd_count_argc(t_cmd *cmd);
 
 /* cmd_parser.c */
 void	feed_cmd_table(t_shell *shell, t_cmd *cmd);
