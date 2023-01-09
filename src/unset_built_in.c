@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 15:59:29 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/01/07 16:11:06 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/01/09 00:42:44 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,16 @@ void	run_unset(t_cmd *cmd, t_shell *shell)
 	int		line_count;
 
 	tmp_content = cmd->cmd_table->content;
-	line_count = 0;
 	tmp_content = tmp_content->next;
-	while (shell->envp[line_count])
-		line_count++;
-	tmp_env = (char **) ft_calloc(line_count, sizeof(char *));
-	feed_tmp_env(shell, tmp_env, tmp_content);
-	clear_envp(shell);
-	shell->envp = tmp_env;
+	while (tmp_content)
+	{
+		line_count = 0;
+		while (shell->envp[line_count])
+			line_count++;
+		tmp_env = (char **) ft_calloc(line_count, sizeof(char *));
+		feed_tmp_env(shell, tmp_env, tmp_content);
+		clear_envp(shell);
+		shell->envp = tmp_env;
+		tmp_content = tmp_content->next;
+	}
 }
