@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 14:13:48 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/01/07 15:42:04 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/01/09 13:41:30 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,5 @@ void	run_cd(t_cmd *cmd, t_shell *shell)
 	else
 		throw_err_cd(cmd, destiny);
 	ft_freethis(&destiny, NULL);
+	cmd->builtin = 1;
 }

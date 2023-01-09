@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 15:56:31 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/01/07 15:56:48 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/01/09 13:41:41 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,5 @@ void	run_echo(t_cmd *cmd)
 	}
 	if (new_line)
 		printf("\n");
+	cmd->builtin = 1;
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   built_ins.c                                        :+:      :+:    :+:   */
+/*   built_in_parser.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 18:10:47 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/01/09 00:33:10 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/01/09 13:40:20 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	check_built_in(t_cmd *cmd, t_shell *shell)
 		run_cd(cmd, shell);
 	if (!ft_strncmp((char *) tmp_content->content, "pwd", \
 	ft_strlen((char *) tmp_content->content)))
-		run_pwd(shell);
+		run_pwd(cmd, shell);
 	if (!ft_strncmp((char *) tmp_content->content, "export", \
 	ft_strlen((char *) tmp_content->content)))
 		run_export(cmd, shell);
@@ -34,5 +34,5 @@ void	check_built_in(t_cmd *cmd, t_shell *shell)
 		run_unset(cmd, shell);
 	if (!ft_strncmp((char *) tmp_content->content, "env", \
 	ft_strlen((char *) tmp_content->content)))
-		run_env(shell);
+		run_env(cmd, shell);
 }

@@ -6,13 +6,13 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 15:54:49 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/01/07 15:55:06 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/01/09 13:41:18 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	run_pwd(t_shell *shell)
+void	run_pwd(t_cmd *cmd, t_shell *shell)
 {
 	char	*found_field;
 	char	*found_field_no_extra_slash;
@@ -23,4 +23,5 @@ void	run_pwd(t_shell *shell)
 	printf("%s\n", found_field_no_extra_slash);
 	ft_freethis(&found_field, NULL);
 	ft_freethis(&found_field_no_extra_slash, NULL);
+	cmd->builtin = 1;
 }

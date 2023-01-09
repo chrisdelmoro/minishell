@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 16:50:53 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/01/07 16:13:18 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/01/09 13:40:54 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_cmd
 	char	**paths;
 	int		argc;
 	int		error;
+	int		builtin;
 }	t_cmd;
 
 /* initialization_utils.c */
@@ -52,17 +53,17 @@ int		find_envp_field_index(t_shell *shell, const char *field);
 void	replace_env_field(t_shell *shell, const char *field, \
 const char *new_field);
 
-/* built_ins.c */
+/* built_in_parser.c */
 void	check_built_in(t_cmd *cmd, t_shell *shell);
 
 /* cd_built_in.c */
 void	run_cd(t_cmd *cmd, t_shell *shell);
 
 /* env_built_in.c */
-void	run_env(t_shell *shell);
+void	run_env(t_cmd *cmd, t_shell *shell);
 
 /* pwd_built_in.c */
-void	run_pwd(t_shell *shell);
+void	run_pwd(t_cmd *cmd, t_shell *shell);
 
 /* echo_built_in.c */
 void	run_echo(t_cmd *cmd);

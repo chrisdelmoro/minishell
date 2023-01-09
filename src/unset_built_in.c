@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 15:59:29 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/01/09 00:42:44 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/01/09 13:42:22 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,5 @@ void	run_unset(t_cmd *cmd, t_shell *shell)
 		shell->envp = tmp_env;
 		tmp_content = tmp_content->next;
 	}
+	cmd->builtin = 1;
 }

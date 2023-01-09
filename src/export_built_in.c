@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 16:12:37 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/01/09 00:29:55 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/01/09 13:42:11 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,4 +99,5 @@ void	run_export(t_cmd *cmd, t_shell *shell)
 		}
 		tmp_content = tmp_content->next;
 	}
+	cmd->builtin = 1;
 }
