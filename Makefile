@@ -10,26 +10,26 @@ HEADER_PATH		= $(addprefix $(HEADER_DIR), $(HEADER))
 
 SRC_DIR			= ./src/
 SRC				= 	minishell.c \
-					initialization_utils.c \
-					shell_utils.c \
-					built_in_parser.c \
-					cd_built_in.c \
-					env_built_in.c \
-					pwd_built_in.c \
-					echo_built_in.c \
-					export_built_in.c \
-					unset_built_in.c \
-					cmd_utils.c \
-					cmd_parser.c \
-					cmd_pipe_parser.c \
-					cmd_redirect_parser.c \
-					cmd_validation_utils.c \
-					cmd_var_expansion.c \
-					cmd_quotes_parser.c \
-					cmd_space_parser.c \
+					initialize_and_close/initialization_utils.c \
+					initialize_and_close/close_utils.c \
+					builtins/built_in_parser.c \
+					builtins/cd_built_in.c \
+					builtins/env_built_in.c \
+					builtins/pwd_built_in.c \
+					builtins/echo_built_in.c \
+					builtins/export_built_in.c \
+					builtins/unset_built_in.c \
+					parser/cmd_parser.c \
+					parser/cmd_pipe_parser.c \
+					parser/cmd_redirect_parser.c \
+					parser/cmd_validation_utils.c \
+					parser/cmd_var_expansion.c \
+					parser/cmd_quotes_parser.c \
+					parser/cmd_space_parser.c \
 					cmd_error.c \
-					cmd_exec_utils.c \
-					close_utils.c
+					utils/cmd_utils.c \
+					utils/shell_utils.c \
+					utils/cmd_exec_utils.c
 SRC_PATH		= $(addprefix $(SRC_DIR), $(SRC))
 
 CC				= gcc
