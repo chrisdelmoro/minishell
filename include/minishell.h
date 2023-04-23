@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 16:50:53 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/04/22 22:52:21 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/04/23 18:59:17 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_shell
 {
 	char	**envp;
 	char	*prompt;
+	int		exit_status;
 	int		exit;
 }	t_shell;
 

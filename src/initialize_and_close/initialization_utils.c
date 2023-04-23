@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:39:05 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/01/09 13:38:37 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/04/23 20:15:40 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	initialize_shell(t_shell *shell, const char **envp)
 	user = find_envp_field(shell, "USER");
 	shell->prompt = ft_strjoin(user, " > ");
 	ft_freethis(&user, NULL);
+	shell->exit_status = 0;
 	shell->exit = 0;
 }
 

@@ -6,13 +6,22 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 16:46:52 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/04/23 00:08:23 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/04/23 20:44:18 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	handle_cmd(t_shell *shell)
+void	sigint(int signum)
+{
+	rl_on_new_line();
+	ft_putchar_fd('\n', 1);
+	rl_replace_line("", 0);
+	rl_redisplay();
+	(void) signum;
+}
+
+static void	handle_cmd(t_shell *shell)
 {
 	t_cmd	cmd;
 
@@ -33,6 +42,8 @@ int	main(int argc, char **argv, const char **envp)
 
 	(void) argc;
 	(void) argv;
+	signal(SIGINT, sigint);
+	signal(SIGQUIT, SIG_IGN);
 	initialize_shell(&shell, envp);
 	while (!shell.exit)
 	{
