@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 17:55:58 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/04/23 16:54:15 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/04/23 18:50:07 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,11 @@ static void	search_env_vars(t_shell *shell, t_cmd *cmd, int i)
 	ft_freethis(&found_var, NULL);
 }
 
-static void	remove_dollar_sign(t_cmd *cmd)
+static void	remove_dollar_sign(t_cmd *cmd, int i)
 {
 	char	*str_part1;
 	char	*str_part2;
-	int		i;
 
-	i = 0;
 	while (cmd->cmd_typed[i])
 	{
 		if (cmd->cmd_typed[i] == '$')
@@ -75,6 +73,21 @@ static void	remove_dollar_sign(t_cmd *cmd)
 			cmd->cmd_typed = ft_strjoin(str_part1, str_part2);
 		}
 		i++;
+	}
+}
+
+static void	found_dollar_sign(t_shell *shell, t_cmd *cmd, int i)
+{
+	if (ft_isalpha(cmd->cmd_typed[i + 1]) || cmd->cmd_typed[i + 1] == '\'' || \
+	cmd->cmd_typed[i + 1] == '\"')
+	{
+		if (cmd->cmd_typed[i + 1] == '\'' || cmd->cmd_typed[i + 1] == '\"')
+		{
+			cmd_remove_quotes(cmd);
+			remove_dollar_sign(cmd, i);
+		}
+		else
+			search_env_vars(shell, cmd, i);
 	}
 }
 
@@ -94,15 +107,7 @@ void	cmd_expand_var(t_shell *shell, t_cmd *cmd)
 		else if (cmd->cmd_typed[i] == '\'' && quoted == 1)
 			quoted = 0;
 		if (cmd->cmd_typed[i] == '$' && quoted == 0)
-		{
-			if (cmd->cmd_typed[i + 1] == '\'' || cmd->cmd_typed[i + 1] == '\"')
-			{
-				cmd_remove_quotes(cmd);
-				remove_dollar_sign(cmd);
-			}
-			else
-				search_env_vars(shell, cmd, i);
-		}
+			found_dollar_sign(shell, cmd, i);
 		i++;
 	}
 }
