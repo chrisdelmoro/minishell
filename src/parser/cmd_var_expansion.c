@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 17:55:58 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/04/22 23:51:34 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/04/23 16:54:15 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,27 @@ static void	search_env_vars(t_shell *shell, t_cmd *cmd, int i)
 	ft_freethis(&found_var, NULL);
 }
 
+static void	remove_dollar_sign(t_cmd *cmd)
+{
+	char	*str_part1;
+	char	*str_part2;
+	int		i;
+
+	i = 0;
+	while (cmd->cmd_typed[i])
+	{
+		if (cmd->cmd_typed[i] == '$')
+		{
+			str_part1 = ft_substr(cmd->cmd_typed, 0, i);
+			str_part2 = ft_substr(cmd->cmd_typed, i + 1, \
+			ft_strlen(cmd->cmd_typed));
+			ft_freethis(&cmd->cmd_typed, NULL);
+			cmd->cmd_typed = ft_strjoin(str_part1, str_part2);
+		}
+		i++;
+	}
+}
+
 void	cmd_expand_var(t_shell *shell, t_cmd *cmd)
 {
 	int		quoted;
@@ -74,7 +95,13 @@ void	cmd_expand_var(t_shell *shell, t_cmd *cmd)
 			quoted = 0;
 		if (cmd->cmd_typed[i] == '$' && quoted == 0)
 		{
-			search_env_vars(shell, cmd, i);
+			if (cmd->cmd_typed[i + 1] == '\'' || cmd->cmd_typed[i + 1] == '\"')
+			{
+				cmd_remove_quotes(cmd);
+				remove_dollar_sign(cmd);
+			}
+			else
+				search_env_vars(shell, cmd, i);
 		}
 		i++;
 	}
