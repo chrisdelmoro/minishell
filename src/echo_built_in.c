@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 15:56:31 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/01/09 13:41:41 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/04/23 00:11:21 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,14 @@ void	run_echo(t_cmd *cmd)
 	tmp_content = cmd->cmd_table->content;
 	tmp_content = tmp_content->next;
 	new_line = 1;
-	if (!ft_strncmp((char *) tmp_content->content, "-n", ft_strlen((char *) \
-	tmp_content->content)))
+	if (tmp_content)
 	{
-		new_line = 0;
-		tmp_content = tmp_content->next;
+		if (!ft_strncmp((char *) tmp_content->content, "-n", ft_strlen((char *) \
+		tmp_content->content)))
+		{
+			new_line = 0;
+			tmp_content = tmp_content->next;
+		}
 	}
 	while (tmp_content)
 	{

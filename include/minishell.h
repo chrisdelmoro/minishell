@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 16:50:53 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/01/09 13:40:54 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/04/22 22:52:21 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ typedef struct s_shell
 
 typedef struct s_cmd
 {
-	t_list	*cmd_table;
-	char	*cmd_typed;
-	char	**paths;
-	int		argc;
-	int		error;
-	int		builtin;
+	t_list	*cmd_table; /* linked list where each node is a "word" of the command */
+	char	*cmd_typed; /* command as typed by the user */
+	char	**paths; /* list containg all possible directories where sys binaries can be found. Extracted from $PATH variable. */
+	int		argc; /* number of arguments for a command. Needed to exec a command. */
+	int		error; /* error found on the user command or not */
+	int		builtin; /* used to flag a command as builtin. Therefore duplicates of the command on the system will not be executed as well. */
 }	t_cmd;
 
 /* initialization_utils.c */

@@ -6,11 +6,13 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 12:50:14 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/01/09 13:39:53 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/04/19 18:57:12 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+/* Form argv as a simple list as it is requeired for executing a binary. */
 
 static char	**form_argv(t_list *cmd_lst)
 {
@@ -51,6 +53,8 @@ static char	*form_tested_path(t_cmd *cmd, int i)
 	return (tested_path);
 }
 
+/* Run a binary based on a relative path. */
+
 static void	run_path(t_shell *shell, char **argv)
 {
 	int		child_pid;
@@ -68,6 +72,8 @@ static void	run_path(t_shell *shell, char **argv)
 	}
 	i++;
 }
+
+/* Run a binary based on envp. */
 
 static void	run_sys_bin(t_shell *shell, t_cmd *cmd, char **argv)
 {

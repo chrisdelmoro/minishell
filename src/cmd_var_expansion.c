@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 17:55:58 by ccamargo          #+#    #+#             */
-/*   Updated: 2022/12/23 18:35:45 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/04/22 23:51:34 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,19 @@ static void	replace_cmd_typed(t_cmd *cmd, char *found_var, int i, int j)
 
 	str_part1 = ft_substr(cmd->cmd_typed, 0, i);
 	str_part2 = ft_substr(cmd->cmd_typed, i + j, ft_strlen(cmd->cmd_typed));
-	tmp_cmd_typed = ft_strjoin(str_part1, found_var);
-	ft_freethis(&cmd->cmd_typed, NULL);
-	cmd->cmd_typed = ft_strjoin(tmp_cmd_typed, str_part2);
+	if (found_var)
+	{
+		tmp_cmd_typed = ft_strjoin(str_part1, found_var);
+		ft_freethis(&cmd->cmd_typed, NULL);
+		cmd->cmd_typed = ft_strjoin(tmp_cmd_typed, str_part2);
+		ft_freethis(&tmp_cmd_typed, NULL);
+	}
+	else
+	{
+		ft_freethis(&cmd->cmd_typed, NULL);
+		cmd->cmd_typed = ft_strjoin(str_part1, str_part2);
+	}
 	ft_freethis(&str_part1, NULL);
-	ft_freethis(&tmp_cmd_typed, NULL);
 	ft_freethis(&str_part2, NULL);
 }
 
@@ -65,7 +73,9 @@ void	cmd_expand_var(t_shell *shell, t_cmd *cmd)
 		else if (cmd->cmd_typed[i] == '\'' && quoted == 1)
 			quoted = 0;
 		if (cmd->cmd_typed[i] == '$' && quoted == 0)
+		{
 			search_env_vars(shell, cmd, i);
+		}
 		i++;
 	}
 }
