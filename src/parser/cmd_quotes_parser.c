@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 18:43:15 by ccamargo          #+#    #+#             */
-/*   Updated: 2022/12/24 12:43:46 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/04/23 16:01:11 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ void	cmd_remove_quotes(t_cmd *cmd)
 	int	i;
 
 	i = 0;
+	if (cmd->error)
+		return ;
 	while (cmd->cmd_typed[i])
 	{
 		if (cmd->cmd_typed[i] == '\'')
