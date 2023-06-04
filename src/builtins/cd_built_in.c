@@ -6,23 +6,13 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 14:13:48 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/01/09 13:41:30 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/14 19:06:27 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static void	throw_err_cd(t_cmd *cmd, char *err)
-{
-	ft_putstr_fd("minishell: cd: ", 2);
-	ft_putstr_fd(err, 2);
-	ft_putstr_fd(": ", 2);
-	ft_putstr_fd(strerror(errno), 2);
-	ft_putchar_fd('\n', 2);
-	cmd->error = 1;
-}
-
-static void	update_workdir(t_shell *shell, char *destiny)
+static void	update_workdir(t_shell *shell)
 {
 	char	*current_pwd;
 	char	*tmp;
@@ -33,9 +23,11 @@ static void	update_workdir(t_shell *shell, char *destiny)
 	tmp = current_pwd;
 	current_pwd = ft_strjoin("OLD", current_pwd);
 	ft_freethis(&tmp, NULL);
-	replace_env_field(shell, "OLDPWD", current_pwd);
+	if (find_envp_field_index(shell, "OLDPWD") != -1)
+		replace_env_field(shell, "OLDPWD", current_pwd);
+	else
+		realloc_env(shell, current_pwd);
 	ft_freethis(&current_pwd, NULL);
-	chdir(destiny);
 	tmp = getcwd(NULL, 0);
 	current_pwd = ft_strjoin("PWD=/", tmp);
 	replace_env_field(shell, "PWD", current_pwd);
@@ -43,28 +35,30 @@ static void	update_workdir(t_shell *shell, char *destiny)
 	ft_freethis(&current_pwd, NULL);
 }
 
-void	run_cd(t_cmd *cmd, t_shell *shell)
+void	ft_cd(t_token *token, t_shell *shell)
 {
-	t_list	*tmp_content;
 	char	*destiny;
 
-	tmp_content = cmd->cmd_table->content;
-	tmp_content = tmp_content->next;
-	if (cmd->argc > 2)
+	if (count_number_of_params(token->cmd) > 2)
 	{
-		throw_err(cmd, "cd: too many arguments");
+		throw_err(shell, "cd: too many arguments", 1);
 		return ;
 	}
-	if (!tmp_content)
+	if (!token->cmd[1])
 		destiny = find_envp_field(shell, "HOME");
-	else if (!ft_strncmp((char *) tmp_content->content, "-", 2))
+	else if (!ft_strncmp((char *)token->cmd[1], "-", ft_strlen(token->cmd[1])))
+	{
 		destiny = find_envp_field(shell, "OLDPWD");
+		if (!destiny)
+			throw_err(shell, "cd: OLDPWD not set", 1);
+		else
+			printf("%s\n", destiny);
+	}
 	else
-		destiny = ft_strdup((char *) tmp_content->content);
+		destiny = ft_strdup((char *)token->cmd[1]);
 	if (!chdir(destiny))
-		update_workdir(shell, destiny);
-	else
-		throw_err_cd(cmd, destiny);
+		update_workdir(shell);
+	else if (shell->exit_status == 0)
+		throw_err_cd(shell, destiny, 1);
 	ft_freethis(&destiny, NULL);
-	cmd->builtin = 1;
 }

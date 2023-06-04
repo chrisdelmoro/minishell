@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 16:12:37 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/01/09 13:42:11 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/13 16:40:16 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,23 @@ static void	no_args(t_shell *shell)
 	}
 }
 
-static int	is_arg_valid(t_cmd *cmd, char *arg)
+static int	validate_var_name(char arg, int i)
+{
+	int	j;
+
+	j = 0;
+	if (i == 0 && ft_isdigit(arg))
+		return (1);
+	while (INVALID_CHARS[j])
+	{
+		if (arg == INVALID_CHARS[j])
+			return (1);
+		j++;
+	}
+	return (0);
+}
+
+static int	is_arg_valid(char *arg)
 {
 	int	equals;
 	int	i;
@@ -34,16 +50,15 @@ static int	is_arg_valid(t_cmd *cmd, char *arg)
 	i = 0;
 	while (arg[i])
 	{
-		if (!ft_isalnum(arg[i]) && arg[i] != '=')
-		{
-			ft_putstr_fd("minishell: export: '", 2);
-			ft_putchar_fd(arg[i], 2);
-			ft_putstr_fd("': not a valid identifier\n", 2);
-			cmd->error = 1;
-			return (0);
-		}
 		if (arg[i] == '=')
 			equals++;
+		if (equals == 0 && validate_var_name(arg[i], i))
+		{
+			ft_putstr_fd("minishell: export: '", 2);
+			ft_putstr_fd(arg, 2);
+			ft_putstr_fd("': not a valid identifier\n", 2);
+			return (0);
+		}
 		i++;
 	}
 	if (equals > 0)
@@ -52,7 +67,7 @@ static int	is_arg_valid(t_cmd *cmd, char *arg)
 		return (0);
 }
 
-static void	realloc_env(t_shell *shell, char *env_line)
+void	realloc_env(t_shell *shell, char *env_line)
 {
 	char	**tmp_env;
 	int		line_count;
@@ -80,24 +95,24 @@ static void	realloc_env(t_shell *shell, char *env_line)
 	shell->envp = tmp_env;
 }
 
-void	run_export(t_cmd *cmd, t_shell *shell)
+void	ft_export(t_token *token, t_shell *shell)
 {
-	t_list	*tmp_content;
+	int		i;
 
-	tmp_content = cmd->cmd_table->content;
-	tmp_content = tmp_content->next;
-	if (cmd->argc == 1)
+	if (count_number_of_params(token->cmd) == 1)
 	{
 		no_args(shell);
 		return ;
 	}
-	while (tmp_content)
+	i = 1;
+	while (token->cmd[i])
 	{
-		if (is_arg_valid(cmd, (char *) tmp_content->content))
+		if (is_arg_valid(token->cmd[i]))
 		{
-			realloc_env(shell, (char *) tmp_content->content);
+			valid_arg(shell, token, &i);
 		}
-		tmp_content = tmp_content->next;
+		else
+			shell->exit_status = 1;
+		i++;
 	}
-	cmd->builtin = 1;
 }

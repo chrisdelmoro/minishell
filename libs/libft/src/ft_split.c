@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:58:29 by ccamargo          #+#    #+#             */
-/*   Updated: 2022/12/10 19:54:16 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/04/25 20:33:09 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,6 @@ char	**ft_split(char const *s, char c)
 	if (!strs)
 		return (NULL);
 	feedstrs(s, c, word_count, strs);
+	strs[word_count] = NULL;
 	return (strs);
 }

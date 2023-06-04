@@ -6,13 +6,13 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 15:53:00 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/01/09 13:41:59 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/13 16:41:13 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	run_env(t_cmd *cmd, t_shell *shell)
+void	ft_env(t_shell *shell)
 {
 	int	i;
 
@@ -22,5 +22,4 @@ void	run_env(t_cmd *cmd, t_shell *shell)
 		printf("%s\n", shell->envp[i]);
 		i++;
 	}
-	cmd->builtin = 1;
 }

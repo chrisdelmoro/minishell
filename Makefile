@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/04/20 19:31:21 by mcarecho          #+#    #+#              #
+#    Updated: 2023/05/21 17:43:57 by ccamargo         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME			= minishell
 
 LIBFT_DIR		= ./libs/libft/
@@ -9,27 +21,38 @@ HEADER			= minishell.h
 HEADER_PATH		= $(addprefix $(HEADER_DIR), $(HEADER))
 
 SRC_DIR			= ./src/
-SRC				= 	minishell.c \
-					initialize_and_close/initialization_utils.c \
-					initialize_and_close/close_utils.c \
+SRC				=	main.c \
+					closing/close_utils.c \
+					errors/errors.c \
+					errors/errors_2.c \
+					initialization/initialization_utils.c \
+					signals/signals_utils.c \
+					signals/signals_utils_2.c \
+					utils/cmd_var_expansion.c \
+					utils/cmd_var_expansion_2.c \
+					utils/shell_utils.c \
+					utils/token_utils.c \
+					tokenization/token.c \
+					tokenization/split_cmd.c \
+					tokenization/parser.c \
+					tokenization/normalize_lexer.c \
+					tokenization/lexer.c \
+					tokenization/check_symbol.c \
 					builtins/built_in_parser.c \
 					builtins/cd_built_in.c \
-					builtins/env_built_in.c \
-					builtins/pwd_built_in.c \
 					builtins/echo_built_in.c \
+					builtins/env_built_in.c \
+					builtins/exit_built_in.c \
 					builtins/export_built_in.c \
+					builtins/export_built_in_2.c \
+					builtins/pwd_built_in.c \
 					builtins/unset_built_in.c \
-					parser/cmd_parser.c \
-					parser/cmd_pipe_parser.c \
-					parser/cmd_redirect_parser.c \
-					parser/cmd_validation_utils.c \
-					parser/cmd_var_expansion.c \
-					parser/cmd_quotes_parser.c \
-					parser/cmd_space_parser.c \
-					cmd_error.c \
-					utils/cmd_utils.c \
-					utils/shell_utils.c \
-					utils/cmd_exec_utils.c
+					execution/redirect_infile.c \
+					execution/redirect_output.c \
+					execution/run_command.c \
+					execution/set_fds.c \
+					execution/token_execution.c
+
 SRC_PATH		= $(addprefix $(SRC_DIR), $(SRC))
 
 CC				= gcc

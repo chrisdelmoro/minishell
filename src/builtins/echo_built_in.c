@@ -6,37 +6,35 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 15:56:31 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/04/23 00:11:21 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/13 16:41:04 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	run_echo(t_cmd *cmd)
+void	ft_echo(t_token *token)
 {
-	t_list	*tmp_content;
 	int		new_line;
+	int		i;
 
-	tmp_content = cmd->cmd_table->content;
-	tmp_content = tmp_content->next;
 	new_line = 1;
-	if (tmp_content)
+	i = 1;
+	if (token->cmd[1])
 	{
-		if (!ft_strncmp((char *) tmp_content->content, "-n", ft_strlen((char *) \
-		tmp_content->content)))
+		if (!ft_strncmp((char *) token->cmd[1], "-n", ft_strlen((char *) \
+		token->cmd[1])))
 		{
 			new_line = 0;
-			tmp_content = tmp_content->next;
+			i = 2;
 		}
 	}
-	while (tmp_content)
+	while (token->cmd[i])
 	{
-		printf("%s", (char *) tmp_content->content);
-		if (tmp_content->next)
+		printf("%s", token->cmd[i]);
+		if (token->cmd[i + 1])
 			printf(" ");
-		tmp_content = tmp_content->next;
+		i++;
 	}
 	if (new_line)
 		printf("\n");
-	cmd->builtin = 1;
 }

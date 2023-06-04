@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:41:45 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/01/02 19:21:15 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/04 17:26:14 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,23 @@ const char *new_field)
 	i = find_envp_field_index(shell, field);
 	ft_freethis(&shell->envp[i], NULL);
 	shell->envp[i] = ft_strdup(new_field);
+}
+
+void	remove_quotes(char **str, int i)
+{
+	char	*temp;
+	char	*temp2;
+	char	*temp3;
+	int		second_quote;
+
+	second_quote = ft_strchr(&str[0][i + 2], '"') - &str[0][i + 2];
+	temp = ft_substr(str[0], 0, i + 1);
+	temp2 = ft_substr(str[0], i + 2, second_quote);
+	temp3 = ft_strjoin(temp, temp2);
+	ft_freethis(&temp, NULL);
+	ft_freethis(&temp2, NULL);
+	temp = ft_substr(str[0], i + second_quote + 3, ft_strlen(str[0]));
+	ft_freethis(&str[0], NULL);
+	str[0] = ft_strjoin(temp3, temp);
+	ft_freethis(&temp, NULL);
 }

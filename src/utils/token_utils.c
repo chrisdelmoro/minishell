@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_error.c                                        :+:      :+:    :+:   */
+/*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/22 19:04:30 by ccamargo          #+#    #+#             */
-/*   Updated: 2022/12/22 19:06:14 by ccamargo         ###   ########.fr       */
+/*   Created: 2023/04/26 22:36:47 by ccamargo          #+#    #+#             */
+/*   Updated: 2023/04/26 22:39:05 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
-
-void	throw_err(t_cmd *cmd, char *err)
+int	count_number_of_params(char **cmd)
 {
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(err, 2);
-	ft_putchar_fd('\n', 2);
-	cmd->error = 1;
+	int	i;
+
+	i = 0;
+	while (cmd[i])
+		i++;
+	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: ccamargo <ccamargo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:39:05 by ccamargo          #+#    #+#             */
-/*   Updated: 2023/04/23 20:15:40 by ccamargo         ###   ########.fr       */
+/*   Updated: 2023/05/03 19:05:26 by ccamargo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	initialize_shell(t_shell *shell, const char **envp)
 	i = 0;
 	while (envp[line_count])
 		line_count++;
-	shell->envp = (char **) ft_calloc(line_count + 1, sizeof(char *));
+	shell->envp = (char **)ft_calloc(line_count + 1, sizeof(char *));
 	while (line_count)
 	{
 		shell->envp[i] = ft_strdup(envp[i]);
@@ -36,21 +36,21 @@ void	initialize_shell(t_shell *shell, const char **envp)
 	shell->prompt = ft_strjoin(user, " > ");
 	ft_freethis(&user, NULL);
 	shell->exit_status = 0;
-	shell->exit = 0;
+	shell->last_status = 0;
 }
 
-/* Initialize cmd variables. Called each time a command is typed. */
-
-void	initialize_cmd(t_shell *shell, t_cmd *cmd)
+void	start_tokens(t_shell *shell)
 {
 	char	*env_path;
 
-	cmd->cmd_table = NULL;
-	cmd->cmd_typed = NULL;
-	cmd->error = 0;
+	shell->h_token = malloc(sizeof(t_token));
+	shell->h_token->value = NULL;
+	shell->h_token->n_cmds = 0;
+	shell->h_token->n_tokens = 0;
 	env_path = find_envp_field(shell, "PATH");
-	cmd->paths = ft_split(env_path, ':');
+	shell->paths = ft_split(env_path, ':');
 	ft_freethis(&env_path, NULL);
-	cmd->argc = 0;
-	cmd->builtin = 0;
+	shell->h_token->next_token = NULL;
+	shell->h_token->type = SEPARATOR;
+	shell->h_token->cmd = NULL;
 }
